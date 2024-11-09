@@ -1,9 +1,21 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+import { MONGO_URI, MONGO_DB } from '../config.js';
 
 
-const URI = ""
 
 const connectToDatabase = async () => {
-    
+    try {
+        await mongoose.connect(MONGO_URI + MONGO_DB, {
+            writeConcern: {
+                w: 'majority', 
+            }
+        })
+        console.log("Successfully connected to the database")
+    }
+    catch (error) {
+        console.log(error.message)
+    }
+
 }
+
+export default connectToDatabase;
